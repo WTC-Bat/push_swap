@@ -6,7 +6,7 @@
 /*   By: mvanwyk <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 16:04:36 by mvanwyk           #+#    #+#             */
-/*   Updated: 2016/06/28 17:16:41 by mvanwyk          ###   ########.fr       */
+/*   Updated: 2016/06/28 17:28:58 by mvanwyk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,20 +87,28 @@ static char		**get_operations()
 {
 	int		b;
 	char	*buffer;
+	char	**ops;
 
-	while (b = read(0, buffer, CHK_BUFF) > 0)
+	buffer = (char *)ft_memalloc(CHK_BUFF);
+	ops = (char **)malloc(sizeof(char *) * 32);
+	while ((b = read(0, buffer, CHK_BUFF)) > 0)
 	{
-		
+		*ops = (char *)malloc(sizeof(char) * CHK_BUFF);
+		*ops = buffer;
+		ft_strclr(buffer);	
 	}	
+	return (ops);
 }
 
 int				main(int argc, char **argv)
 {
 	t_stacks	stacks;
 	int			cnt;
+	char		**ops;
 
 	if (args_valid(argc, argv) == 0)
 		exit(1);
 	stacks = stacks_init(argc, argv);
+	ops = get_operations();
 	return (0);
 }
